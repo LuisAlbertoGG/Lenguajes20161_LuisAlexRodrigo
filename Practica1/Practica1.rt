@@ -1,0 +1,16 @@
+
+#lang plai
+
+#|
+ #pow - Define la funci´on pow tal que toma dos n´umeros enteros positivos z y w y regresa el numero que se
+ #obtiene de elevar el numero z a la potencia w, i.e.
+|#
+
+(define (pow x y)
+
+  ;caso base cuando x^0 =1
+  (cond
+    [(= y 0)1] ; si x^0 =0
+          ;base potencias de la base *exponente-1
+    [else (* x(pow x (- y 1)))]));llamada recursiva
+  
