@@ -14,3 +14,15 @@
           ;base potencias de la base *exponente-1
     [else (* x(pow x (- y 1)))]));llamada recursiva
   
+  #|
+  #
+  #average - Dado una lista no vac´ıa de n´umeros, regresar el promedio de esta, i.e.
+  |#
+  (define (average lista)
+  (define (suma lista) 
+  (cond
+    [(empty? lista) 0] ;si la lista es vacia
+    [(= 1(length lista)) (car lista)]
+    ;(+(car lista)(pro (cdr lista)))
+    [ (+(car lista)(suma (cdr lista)))]))
+  (/(suma lista )(length lista)))
