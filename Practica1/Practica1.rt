@@ -26,3 +26,17 @@
     ;(+(car lista)(pro (cdr lista)))
     [ (+(car lista)(suma (cdr lista)))]))
   (/(suma lista )(length lista)))
+  
+  #|
+  #Dadas dos listas, regresar una lista cuyos elementos son listas de tama˜nos dos, tal que par la i-´esima
+  #lista, el primer elemento es el i-´esimo de la primera lista original y el segundo elemento es el i-´esimo de la
+  #segunda lista original, si una lista es de menor tama˜no que la otra, la lista resultante es del tama˜no de la
+  #menor, y si una de las listas es vac´ıa, regresar una lista vac´ıa, i
+  |#
+  
+  (define (zip L R)
+  (cond
+    [(and (< 1(length L)) (< 1(length R)))
+     (list (list(car L ) (car R))
+           (list (car (cdr L)) (car (cdr R))))]
+    [else '()]))
