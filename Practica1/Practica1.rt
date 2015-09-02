@@ -50,3 +50,13 @@
     [(empty? lst) lst1] ;si la lista lst es vacia.
     [(empty? lst1) lst] ;si la lista lst1 es vacia.
     [else(cons(car lst) (mconcat (cdr lst) lst1))]]) ;Se crea una lista con el car de lst y la llamada recursiva del cdr de lst y lst1.
+
+#|
+#Regresa una lista con la aplicación de la función a cada elemento de la lista.
+|#
+
+(define(mmap func lst)
+  [cond
+    [(empty? lst) '()] ;Caso base: sí la lista está vacia.
+    [else( cons (func(car lst)) (mmap func (cdr lst))) ]]) ;Hago una lista con la aplicación de la
+;función al car de la lista dada y la llamada recursiva con la función aplicada al cdr de la lista dada.
