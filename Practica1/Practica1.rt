@@ -78,3 +78,11 @@
     [(empty? lst) '()] ;Caso base: sí la lista está vacia.
     [else( cons (func(car lst)) (mmap func (cdr lst))) ]]) ;Hago una lista con la aplicación de la
 ;función al car de la lista dada y la llamada recursiva con la función aplicada al cdr de la lista dada.
+
+ #|
+    # (test (mmap car '()) '())
+    # (test (mmap car '((1 2))) '(1))
+    # (test (mmap car '((1 2) (2 3))) '(1 2))
+    # (test (mmap cdr '((1 2) (2 3))) '((2) (3)))
+    # (test (mmap cdr '((1 2) (2 3) (3 4))) '((2) (3) (4)))
+ |#
