@@ -40,3 +40,13 @@
      (list (list(car L ) (car R))
            (list (car (cdr L)) (car (cdr R))))]
     [else '()]))
+
+  #|
+  # mconcat - Dado dos listas, regresa la concatenación de ambas listas.
+  |#
+
+(define(mconcat lst lst1)
+  [cond
+    [(empty? lst) lst1] ;si la lista lst es vacia.
+    [(empty? lst1) lst] ;si la lista lst1 es vacia.
+    [else(cons(car lst) (mconcat (cdr lst) lst1))]]) ;Se crea una lista con el car de lst y la llamada recursiva del cdr de lst y lst1.
