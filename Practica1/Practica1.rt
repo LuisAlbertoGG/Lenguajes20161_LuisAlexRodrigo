@@ -36,6 +36,16 @@
   (/(suma lista )(length lista)))
   
   #|
+  # >(test(average '( 10 9 8 7) )8.5)
+  # >(test(average '( 10 9 10 10) )9.75)
+  # >(test(average '( 10 ) )10)
+  # >(test(average '( 10 8 6) )8)
+  # >(test(average '( 10 8 12) )10)
+  #|#
+  
+  
+  
+  #|
   #Dadas dos listas, regresar una lista cuyos elementos son listas de tama˜nos dos, tal que par la i-´esima
   #lista, el primer elemento es el i-´esimo de la primera lista original y el segundo elemento es el i-´esimo de la
   #segunda lista original, si una lista es de menor tama˜no que la otra, la lista resultante es del tama˜no de la
