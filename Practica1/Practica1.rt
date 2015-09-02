@@ -108,9 +108,29 @@
 ;función al car de la lista dada y la llamada recursiva con la función aplicada al cdr de la lista dada.
 
  #|
-    # (test (mmap car '()) '())
-    # (test (mmap car '((1 2))) '(1))
-    # (test (mmap car '((1 2) (2 3))) '(1 2))
-    # (test (mmap cdr '((1 2) (2 3))) '((2) (3)))
-    # (test (mmap cdr '((1 2) (2 3) (3 4))) '((2) (3) (4)))
+ (test (mmap car '()) '())
+ (test (mmap car '((1 2))) '(1))
+ (test (mmap car '((1 2) (2 3))) '(1 2))
+ (test (mmap cdr '((1 2) (2 3))) '((2) (3)))
+ (test (mmap cdr '((1 2) (2 3) (3 4))) '((2) (3) (4)))
  |#
+ 
+ 
+;Dado un predicado de un argumento y una lista, regresar la lista original sin los elementos que al
+;aplicar el predicado, regresa falso
+ 
+ (define(mfilter pred lst)
+  [cond
+    [(empty? lst) '()] ;Caso base: Sí la lista está vacia.
+    ;Se aplica el predicado al car de lst, concatenado con una lista donde se hace la llamada recursiva al resto de la lista.
+    [(pred (car lst)) (cons (car lst) (mfilter pred (cdr lst))) ]
+    ;Llamada recursiva aplicando el predicado al resto de la lista.
+    [else( mfilter pred (cdr lst) )]])
+
+#|
+(test (mfilter (lambda (l) (not (empty? l))) '(() () () ())) '())
+(test (mfilter (lambda (l) (not (empty? l))) '((1) () (2) ())) '((1) (2)))
+(test (mfilter (lambda (n) (= (modulo n 2) 0)) '(1 2 3 4 5 6)) '(2 4 6) )
+(test (mfilter (lambda (n) (= (modulo n 3) 0)) '(1 2 3 4 5 6)) '(3 6) )
+(test (mfilter (lambda (x) (not (zero? x))) '(0 0 0 0 1 0 0)) '(1) )
+|#
