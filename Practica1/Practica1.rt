@@ -59,6 +59,25 @@
            (list (car (cdr L)) (car (cdr R))))]
     [else '()]))
 
+
+;Regreso la evaluación de la función dada, encadenada de los elementos de la lista dada.
+
+(define(reduce func lst)
+  [cond
+    [(empty? lst) '()] ; Caso base: Sí la lista está vacia.
+    [(empty? (cdr lst)) (car lst)]; Caso base: Sí solo tiene un elemento.
+    ;Evaluo la función del car de lst con la llamada recursiva del cdr de lst.
+    [else( func (car lst) (reduce func (cdr lst)) )]])
+
+#|
+(test (reduce + '(1) ) 1)
+(test (reduce + '() ) '())
+(test (reduce + '(1 2) ) 3)
+(test (reduce + '(1 2 3) ) 6)
+(good (reduce + '(1 2 3 4)) 10 10 "at line 21")
+|#
+
+
   #|
   # mconcat - Dado dos listas, regresa la concatenación de ambas listas.
   |#
@@ -68,6 +87,15 @@
     [(empty? lst) lst1] ;si la lista lst es vacia.
     [(empty? lst1) lst] ;si la lista lst1 es vacia.
     [else(cons(car lst) (mconcat (cdr lst) lst1))]]) ;Se crea una lista con el car de lst y la llamada recursiva del cdr de lst y lst1.
+
+#|
+(test (mconcat '() '() ) '())
+(test (mconcat '() '(1) ) '(1))
+(test (mconcat '(2) '(1) ) '(2 1))
+(test (mconcat '(1 2) '(1) ) '(1 2 1))
+(test (mconcat '(1 2) '(3 4) ) '(1 2 3 4))
+|#
+
 
 #|
 #Regresa una lista con la aplicación de la función a cada elemento de la lista.
@@ -86,6 +114,3 @@
     # (test (mmap cdr '((1 2) (2 3))) '((2) (3)))
     # (test (mmap cdr '((1 2) (2 3) (3 4))) '((2) (3) (4)))
  |#
-
-
-
