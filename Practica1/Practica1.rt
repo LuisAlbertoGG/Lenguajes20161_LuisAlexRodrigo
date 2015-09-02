@@ -13,6 +13,14 @@
     [(= y 0)1] ; si x^0 =0
           ;base potencias de la base *exponente-1
     [else (* x(pow x (- y 1)))]));llamada recursiva
+    
+    #|
+    # >(test (pow 2 7) 128)
+    # >(test (pow 5 1) 5)
+    # >(test (pow 8 0) 1)
+    # >(test (pow 7 3) 343)
+    # >(test (pow 3 7) 2187)
+    #|
   
   #|
   #
