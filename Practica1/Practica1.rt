@@ -26,22 +26,50 @@
   #
   #average - Dado una lista no vac´ıa de n´umeros, regresar el promedio de esta, i.e.
   |#
-  (define (average lista)
-  (define (suma lista) 
+ (define (sumalist a)
   (cond
-    [(empty? lista) 0] ;si la lista es vacia
-    [(= 1(length lista)) (car lista)]
-    ;(+(car lista)(pro (cdr lista)))
-    [ (+(car lista)(suma (cdr lista)))]))
-  (/(suma lista )(length lista)))
-  
-  #|
-  # >(test(average '( 10 9 8 7) )8.5)
-  # >(test(average '( 10 9 10 10) )9.75)
-  # >(test(average '( 10 ) )10)
-  # >(test(average '( 10 8 6) )8)
-  # >(test(average '( 10 8 12) )10)
-  #|#
+    [(empty? a) 0]
+    [else (+ (car a) (sumalist(cdr a)))]))
+
+(define (average a)
+  (/ (sumalist a) (length a)))
+
+(test (average '(1 2 3 4 5)) 3)
+(test (average '(5 5 5 5 5)) 5)
+(test (average '(1 2 3 4 10)) 4)
+(test (average '(1 2 2 1)) (/ 6 4))
+(test (average '(100 200 300 400 500)) 300)
+
+#|
+primes - Dado un número, calcula todos los números primos entre el número dado y el 1
+|#
+;Ejercicio 3
+
+(define (esprimo a b)
+  (cond
+    [(= b 1) #t]
+    [(= a b) (esprimo a (- b 1))]
+    [(= (modulo a b) 0) #f]
+    [else (esprimo a (- b 1))]))
+
+(define (primesaux a b)
+  (cond
+    [(and (esprimo b b)(= a b)) (list b)]
+    [else(cond
+           [(= a b) '()]
+           [else(cond
+                  [(and (esprimo b b) #t) (append (list b) (primesaux a (+ b 1)))]
+                  [else (primesaux a (+ b 1))])
+                  ])]))
+
+(define (primes a)
+  (primesaux a 1))
+
+(test (primes 5) '(1 2 3 5))
+(test (primes 3) '(1 2 3))
+(test (primes 15) '(1 2 3 5 7 11 13))
+(test (primes 21) '(1 2 3 5 7 11 13 17 19))
+(test (primes 2) '(1 2))
   
   
   
@@ -134,3 +162,35 @@
 (test (mfilter (lambda (n) (= (modulo n 3) 0)) '(1 2 3 4 5 6)) '(3 6) )
 (test (mfilter (lambda (x) (not (zero? x))) '(0 0 0 0 1 0 0)) '(1) )
 |#
+
+;Ejercicio 10
+
+(define (mevery? pr lis)
+  (cond
+    [(empty? lis) #t]
+    [(pr (car lis)) (mevery? pr (cdr lis))]
+    [else #f]))
+
+(test (mevery? number? '(1 a 2 b)) #f)
+(test (mevery? string? '("baba" "fafa" ":p")) #t)
+(test (mevery? number? '(1 2 3 4)) #t)
+(test (mevery? string? '("rr" "44" 4)) #f)
+(test (mevery? exact? '(1 2 5 3)) #t)
+
+;Ejercicio 11
+
+(define (mpowerset lis)
+  (cond
+    [(empty? lis) (list '())]
+    [else (mpowaux (mpowerset (cdr lis)) (car lis))]))
+
+(define (mpowaux a b)
+  (cond
+    [(empty? a)  '()]
+    [else (cons (cons b (first a)) (cons (car a) (mpowaux (cdr a) b)))]))
+
+(test (mpowerset '()) '(()))
+(test (mpowerset '(1)) '((1) ()))
+(test (mpowerset '(3)) '((3) ()))
+(test (mpowerset '(1 2)) '((1 2)(2) (1) ()))
+(test (mpowerset '(1 2 3)) '((1 2 3) (2 3) (1 3) (3) (1 2) (2) (1) ()))
