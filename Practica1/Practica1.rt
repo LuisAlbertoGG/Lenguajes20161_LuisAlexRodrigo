@@ -22,6 +22,7 @@
     # >(test (pow 3 7) 2187)
     #|
   
+  ;Ejercicio 2
   #|
   #
   #average - Dado una lista no vac´ıa de n´umeros, regresar el promedio de esta, i.e.
@@ -165,6 +166,11 @@ primes - Dado un número, calcula todos los números primos entre el número dad
 
 ;Ejercicio 10
 
+#|
+mevery?- dado un predicado y una lista, regresa verdadero si cada elemento de la lista es del tipo 
+especificado por el predicado
+|#
+
 (define (mevery? pr lis)
   (cond
     [(empty? lis) #t]
@@ -179,6 +185,9 @@ primes - Dado un número, calcula todos los números primos entre el número dad
 
 ;Ejercicio 11
 
+#|
+mpowerset- Dada un lista, regresa el conjunto potencia de la misma
+|#
 (define (mpowerset lis)
   (cond
     [(empty? lis) (list '())]
