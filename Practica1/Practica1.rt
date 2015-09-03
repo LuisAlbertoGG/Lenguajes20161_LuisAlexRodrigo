@@ -14,13 +14,13 @@
           ;base potencias de la base *exponente-1
     [else (* x(pow x (- y 1)))]));llamada recursiva
     
-    #|
-    # >(test (pow 2 7) 128)
-    # >(test (pow 5 1) 5)
-    # >(test (pow 8 0) 1)
-    # >(test (pow 7 3) 343)
-    # >(test (pow 3 7) 2187)
-    #|
+    
+    >(test (pow 2 7) 128)
+    >(test (pow 5 1) 5)
+    >(test (pow 8 0) 1)
+    >(test (pow 7 3) 343)
+    >(test (pow 3 7) 2187)
+   
   
   ;Ejercicio 2
   #|
@@ -35,11 +35,11 @@
 (define (average a)
   (/ (sumalist a) (length a)))
 
-(test (average '(1 2 3 4 5)) 3)
-(test (average '(5 5 5 5 5)) 5)
-(test (average '(1 2 3 4 10)) 4)
-(test (average '(1 2 2 1)) (/ 6 4))
-(test (average '(100 200 300 400 500)) 300)
+  >(test (average '(1 2 3 4 5)) 3)
+  >(test (average '(5 5 5 5 5)) 5)
+  >(test (average '(1 2 3 4 10)) 4)
+  >(test (average '(1 2 2 1)) (/ 6 4))
+  >(test (average '(100 200 300 400 500)) 300)
 
 #|
 primes - Dado un número, calcula todos los números primos entre el número dado y el 1
@@ -66,11 +66,11 @@ primes - Dado un número, calcula todos los números primos entre el número dad
 (define (primes a)
   (primesaux a 1))
 
-(test (primes 5) '(1 2 3 5))
-(test (primes 3) '(1 2 3))
-(test (primes 15) '(1 2 3 5 7 11 13))
-(test (primes 21) '(1 2 3 5 7 11 13 17 19))
-(test (primes 2) '(1 2))
+  >(test (primes 5) '(1 2 3 5))
+  >(test (primes 3) '(1 2 3))
+  >(test (primes 15) '(1 2 3 5 7 11 13))
+  >(test (primes 21) '(1 2 3 5 7 11 13 17 19))
+  >(test (primes 2) '(1 2))
   
   
   
@@ -98,13 +98,13 @@ primes - Dado un número, calcula todos los números primos entre el número dad
     ;Evaluo la función del car de lst con la llamada recursiva del cdr de lst.
     [else( func (car lst) (reduce func (cdr lst)) )]])
 
-#|
-(test (reduce + '(1) ) 1)
-(test (reduce + '() ) '())
-(test (reduce + '(1 2) ) 3)
-(test (reduce + '(1 2 3) ) 6)
-(good (reduce + '(1 2 3 4)) 10 10 "at line 21")
-|#
+
+  >(test (reduce + '(1) ) 1)
+  >(test (reduce + '() ) '())
+  >(test (reduce + '(1 2) ) 3)
+  >(test (reduce + '(1 2 3) ) 6)
+  >(good (reduce + '(1 2 3 4)) 10 10 "at line 21")
+
 
 
   #|
@@ -164,6 +164,25 @@ primes - Dado un número, calcula todos los números primos entre el número dad
 (test (mfilter (lambda (x) (not (zero? x))) '(0 0 0 0 1 0 0)) '(1) )
 |#
 
+#|
+#  any? - Dado un predicado de un argumento y una lista se debe regresar #t cuando por lo menos un elemento
+#  de la lista regresa #t con el predicado dado. En caso contrario regresa #f, i.eany? - Dado un predicado de un argumento y una lista se debe regresar #t cuando por lo menos un elemento
+#  de la lista regresa #t con el predicado dado. En caso contrario regresa #f, i.e
+#|
+
+  (define (any? predicado lista)
+   (cond
+     [(empty? lista) #f]
+     [(equal? ( predicado (car lista) ) #t ) #t]
+     [else (any? predicado(cdr lista))]
+     ))
+
+> (test (any? number? '('())) #f)
+> (test (any? symbol? '('())) #f)
+>(test (any? symbol? '(1 2 3)) #f)
+> (test (any? symbol? '(1 2 3 a)) #t)
+> (test (any? symbol? '( '(1 2 ) a)) #t)
+
 ;Ejercicio 10
 
 #|
@@ -177,11 +196,11 @@ especificado por el predicado
     [(pr (car lis)) (mevery? pr (cdr lis))]
     [else #f]))
 
-(test (mevery? number? '(1 a 2 b)) #f)
-(test (mevery? string? '("baba" "fafa" ":p")) #t)
-(test (mevery? number? '(1 2 3 4)) #t)
-(test (mevery? string? '("rr" "44" 4)) #f)
-(test (mevery? exact? '(1 2 5 3)) #t)
+>(test (mevery? number? '(1 a 2 b)) #f)
+>(test (mevery? string? '("baba" "fafa" ":p")) #t)
+>(test (mevery? number? '(1 2 3 4)) #t)
+>(test (mevery? string? '("rr" "44" 4)) #f)
+>(test (mevery? exact? '(1 2 5 3)) #t)
 
 ;Ejercicio 11
 
