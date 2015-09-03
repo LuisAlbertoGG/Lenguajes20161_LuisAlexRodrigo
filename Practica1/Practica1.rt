@@ -117,13 +117,13 @@ primes - Dado un número, calcula todos los números primos entre el número dad
     [(empty? lst1) lst] ;si la lista lst1 es vacia.
     [else(cons(car lst) (mconcat (cdr lst) lst1))]]) ;Se crea una lista con el car de lst y la llamada recursiva del cdr de lst y lst1.
 
-#|
-(test (mconcat '() '() ) '())
-(test (mconcat '() '(1) ) '(1))
-(test (mconcat '(2) '(1) ) '(2 1))
-(test (mconcat '(1 2) '(1) ) '(1 2 1))
-(test (mconcat '(1 2) '(3 4) ) '(1 2 3 4))
-|#
+
+>(test (mconcat '() '() ) '())
+>(test (mconcat '() '(1) ) '(1))
+>(test (mconcat '(2) '(1) ) '(2 1))
+>(test (mconcat '(1 2) '(1) ) '(1 2 1))
+>(test (mconcat '(1 2) '(3 4) ) '(1 2 3 4))
+
 
 
 #|
@@ -136,13 +136,13 @@ primes - Dado un número, calcula todos los números primos entre el número dad
     [else( cons (func(car lst)) (mmap func (cdr lst))) ]]) ;Hago una lista con la aplicación de la
 ;función al car de la lista dada y la llamada recursiva con la función aplicada al cdr de la lista dada.
 
- #|
- (test (mmap car '()) '())
- (test (mmap car '((1 2))) '(1))
- (test (mmap car '((1 2) (2 3))) '(1 2))
- (test (mmap cdr '((1 2) (2 3))) '((2) (3)))
- (test (mmap cdr '((1 2) (2 3) (3 4))) '((2) (3) (4)))
- |#
+ 
+ >(test (mmap car '()) '())
+ >(test (mmap car '((1 2))) '(1))
+ >(test (mmap car '((1 2) (2 3))) '(1 2))
+ >(test (mmap cdr '((1 2) (2 3))) '((2) (3)))
+ >(test (mmap cdr '((1 2) (2 3) (3 4))) '((2) (3) (4)))
+ 
  
  
 ;Dado un predicado de un argumento y una lista, regresar la lista original sin los elementos que al
@@ -156,13 +156,13 @@ primes - Dado un número, calcula todos los números primos entre el número dad
     ;Llamada recursiva aplicando el predicado al resto de la lista.
     [else( mfilter pred (cdr lst) )]])
 
-#|
-(test (mfilter (lambda (l) (not (empty? l))) '(() () () ())) '())
-(test (mfilter (lambda (l) (not (empty? l))) '((1) () (2) ())) '((1) (2)))
-(test (mfilter (lambda (n) (= (modulo n 2) 0)) '(1 2 3 4 5 6)) '(2 4 6) )
-(test (mfilter (lambda (n) (= (modulo n 3) 0)) '(1 2 3 4 5 6)) '(3 6) )
-(test (mfilter (lambda (x) (not (zero? x))) '(0 0 0 0 1 0 0)) '(1) )
-|#
+
+>(test (mfilter (lambda (l) (not (empty? l))) '(() () () ())) '())
+>(test (mfilter (lambda (l) (not (empty? l))) '((1) () (2) ())) '((1) (2)))
+>(test (mfilter (lambda (n) (= (modulo n 2) 0)) '(1 2 3 4 5 6)) '(2 4 6) )
+>(test (mfilter (lambda (n) (= (modulo n 3) 0)) '(1 2 3 4 5 6)) '(3 6) )
+>(test (mfilter (lambda (x) (not (zero? x))) '(0 0 0 0 1 0 0)) '(1) )
+
 
 #|
 #  any? - Dado un predicado de un argumento y una lista se debe regresar #t cuando por lo menos un elemento
@@ -217,8 +217,8 @@ mpowerset- Dada un lista, regresa el conjunto potencia de la misma
     [(empty? a)  '()]
     [else (cons (cons b (first a)) (cons (car a) (mpowaux (cdr a) b)))]))
 
-(test (mpowerset '()) '(()))
-(test (mpowerset '(1)) '((1) ()))
-(test (mpowerset '(3)) '((3) ()))
-(test (mpowerset '(1 2)) '((1 2)(2) (1) ()))
-(test (mpowerset '(1 2 3)) '((1 2 3) (2 3) (1 3) (3) (1 2) (2) (1) ()))
+>(test (mpowerset '()) '(()))
+>(test (mpowerset '(1)) '((1) ()))
+>(test (mpowerset '(3)) '((3) ()))
+>(test (mpowerset '(1 2)) '((1 2)(2) (1) ()))
+>(test (mpowerset '(1 2 3)) '((1 2 3) (2 3) (1 3) (3) (1 2) (2) (1) ()))
