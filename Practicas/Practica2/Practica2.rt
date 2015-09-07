@@ -6,4 +6,4 @@
 
 
 (define-type Array
-  [MArray (n number?) (l list?)])
+  [Array (n number?) (l list?)])
