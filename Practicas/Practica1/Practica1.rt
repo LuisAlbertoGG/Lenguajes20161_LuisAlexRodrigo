@@ -1,1 +1,223 @@
-Practica1
+#lang plai
+
+#|
+ #pow - Define la funci´on pow tal que toma dos n´umeros enteros positivos z y w y regresa el numero que se
+ #obtiene de elevar el numero z a la potencia w, i.e.
+|#
+
+(define (pow x y)
+
+  ;caso base cuando x^0 =1
+  (cond
+    [(= y 0)1] ; si x^0 =0
+          ;base potencias de la base *exponente-1
+    [else (* x(pow x (- y 1)))]));llamada recursiva
+    
+    
+    >(test (pow 2 7) 128)
+    >(test (pow 5 1) 5)
+    >(test (pow 8 0) 1)
+    >(test (pow 7 3) 343)
+    >(test (pow 3 7) 2187)
+   
+  
+  ;Ejercicio 2
+  #|
+  #
+  #average - Dado una lista no vac´ıa de n´umeros, regresar el promedio de esta, i.e.
+  |#
+ (define (sumalist a)
+  (cond
+    [(empty? a) 0]
+    [else (+ (car a) (sumalist(cdr a)))]))
+
+(define (average a)
+  (/ (sumalist a) (length a)))
+
+  >(test (average '(1 2 3 4 5)) 3)
+  >(test (average '(5 5 5 5 5)) 5)
+  >(test (average '(1 2 3 4 10)) 4)
+  >(test (average '(1 2 2 1)) (/ 6 4))
+  >(test (average '(100 200 300 400 500)) 300)
+
+#|
+primes - Dado un número, calcula todos los números primos entre el número dado y el 1
+|#
+;Ejercicio 3
+
+(define (esprimo a b)
+  (cond
+    [(= b 1) #t]
+    [(= a b) (esprimo a (- b 1))]
+    [(= (modulo a b) 0) #f]
+    [else (esprimo a (- b 1))]))
+
+(define (primesaux a b)
+  (cond
+    [(and (esprimo b b)(= a b)) (list b)]
+    [else(cond
+           [(= a b) '()]
+           [else(cond
+                  [(and (esprimo b b) #t) (append (list b) (primesaux a (+ b 1)))]
+                  [else (primesaux a (+ b 1))])
+                  ])]))
+
+(define (primes a)
+  (primesaux a 1))
+
+  >(test (primes 5) '(1 2 3 5))
+  >(test (primes 3) '(1 2 3))
+  >(test (primes 15) '(1 2 3 5 7 11 13))
+  >(test (primes 21) '(1 2 3 5 7 11 13 17 19))
+  >(test (primes 2) '(1 2))
+  
+  
+  
+  #|
+  #Dadas dos listas, regresar una lista cuyos elementos son listas de tama˜nos dos, tal que par la i-´esima
+  #lista, el primer elemento es el i-´esimo de la primera lista original y el segundo elemento es el i-´esimo de la
+  #segunda lista original, si una lista es de menor tama˜no que la otra, la lista resultante es del tama˜no de la
+  #menor, y si una de las listas es vac´ıa, regresar una lista vac´ıa, i
+  |#
+  
+  (define (zip L R)
+  (cond
+    [(and (< 1(length L)) (< 1(length R)))
+     (list (list(car L ) (car R))
+           (list (car (cdr L)) (car (cdr R))))]
+    [else '()]))
+
+
+;Regreso la evaluación de la función dada, encadenada de los elementos de la lista dada.
+
+(define(reduce func lst)
+  [cond
+    [(empty? lst) '()] ; Caso base: Sí la lista está vacia.
+    [(empty? (cdr lst)) (car lst)]; Caso base: Sí solo tiene un elemento.
+    ;Evaluo la función del car de lst con la llamada recursiva del cdr de lst.
+    [else( func (car lst) (reduce func (cdr lst)) )]])
+
+
+  >(test (reduce + '(1) ) 1)
+  >(test (reduce + '() ) '())
+  >(test (reduce + '(1 2) ) 3)
+  >(test (reduce + '(1 2 3) ) 6)
+  >(good (reduce + '(1 2 3 4)) 10 10 "at line 21")
+
+
+
+  #|
+  # mconcat - Dado dos listas, regresa la concatenación de ambas listas.
+  |#
+
+(define(mconcat lst lst1)
+  [cond
+    [(empty? lst) lst1] ;si la lista lst es vacia.
+    [(empty? lst1) lst] ;si la lista lst1 es vacia.
+    [else(cons(car lst) (mconcat (cdr lst) lst1))]]) ;Se crea una lista con el car de lst y la llamada recursiva del cdr de lst y lst1.
+
+
+>(test (mconcat '() '() ) '())
+>(test (mconcat '() '(1) ) '(1))
+>(test (mconcat '(2) '(1) ) '(2 1))
+>(test (mconcat '(1 2) '(1) ) '(1 2 1))
+>(test (mconcat '(1 2) '(3 4) ) '(1 2 3 4))
+
+
+
+#|
+#Regresa una lista con la aplicación de la función a cada elemento de la lista.
+|#
+
+(define(mmap func lst)
+  [cond
+    [(empty? lst) '()] ;Caso base: sí la lista está vacia.
+    [else( cons (func(car lst)) (mmap func (cdr lst))) ]]) ;Hago una lista con la aplicación de la
+;función al car de la lista dada y la llamada recursiva con la función aplicada al cdr de la lista dada.
+
+ 
+ >(test (mmap car '()) '())
+ >(test (mmap car '((1 2))) '(1))
+ >(test (mmap car '((1 2) (2 3))) '(1 2))
+ >(test (mmap cdr '((1 2) (2 3))) '((2) (3)))
+ >(test (mmap cdr '((1 2) (2 3) (3 4))) '((2) (3) (4)))
+ 
+ 
+ 
+;Dado un predicado de un argumento y una lista, regresar la lista original sin los elementos que al
+;aplicar el predicado, regresa falso
+ 
+ (define(mfilter pred lst)
+  [cond
+    [(empty? lst) '()] ;Caso base: Sí la lista está vacia.
+    ;Se aplica el predicado al car de lst, concatenado con una lista donde se hace la llamada recursiva al resto de la lista.
+    [(pred (car lst)) (cons (car lst) (mfilter pred (cdr lst))) ]
+    ;Llamada recursiva aplicando el predicado al resto de la lista.
+    [else( mfilter pred (cdr lst) )]])
+
+
+>(test (mfilter (lambda (l) (not (empty? l))) '(() () () ())) '())
+>(test (mfilter (lambda (l) (not (empty? l))) '((1) () (2) ())) '((1) (2)))
+>(test (mfilter (lambda (n) (= (modulo n 2) 0)) '(1 2 3 4 5 6)) '(2 4 6) )
+>(test (mfilter (lambda (n) (= (modulo n 3) 0)) '(1 2 3 4 5 6)) '(3 6) )
+>(test (mfilter (lambda (x) (not (zero? x))) '(0 0 0 0 1 0 0)) '(1) )
+
+
+#|
+#  any? - Dado un predicado de un argumento y una lista se debe regresar #t cuando por lo menos un elemento
+#  de la lista regresa #t con el predicado dado. En caso contrario regresa #f, i.eany? - Dado un predicado de un argumento y una lista se debe regresar #t cuando por lo menos un elemento
+#  de la lista regresa #t con el predicado dado. En caso contrario regresa #f, i.e
+#|
+
+  (define (any? predicado lista)
+   (cond
+     [(empty? lista) #f]
+     [(equal? ( predicado (car lista) ) #t ) #t]
+     [else (any? predicado(cdr lista))]
+     ))
+
+> (test (any? number? '('())) #f)
+> (test (any? symbol? '('())) #f)
+>(test (any? symbol? '(1 2 3)) #f)
+> (test (any? symbol? '(1 2 3 a)) #t)
+> (test (any? symbol? '( '(1 2 ) a)) #t)
+
+;Ejercicio 10
+
+#|
+mevery?- dado un predicado y una lista, regresa verdadero si cada elemento de la lista es del tipo 
+especificado por el predicado
+|#
+
+(define (mevery? pr lis)
+  (cond
+    [(empty? lis) #t]
+    [(pr (car lis)) (mevery? pr (cdr lis))]
+    [else #f]))
+
+>(test (mevery? number? '(1 a 2 b)) #f)
+>(test (mevery? string? '("baba" "fafa" ":p")) #t)
+>(test (mevery? number? '(1 2 3 4)) #t)
+>(test (mevery? string? '("rr" "44" 4)) #f)
+>(test (mevery? exact? '(1 2 5 3)) #t)
+
+;Ejercicio 11
+
+#|
+mpowerset- Dada un lista, regresa el conjunto potencia de la misma
+|#
+(define (mpowerset lis)
+  (cond
+    [(empty? lis) (list '())]
+    [else (mpowaux (mpowerset (cdr lis)) (car lis))]))
+
+(define (mpowaux a b)
+  (cond
+    [(empty? a)  '()]
+    [else (cons (cons b (first a)) (cons (car a) (mpowaux (cdr a) b)))]))
+
+>(test (mpowerset '()) '(()))
+>(test (mpowerset '(1)) '((1) ()))
+>(test (mpowerset '(3)) '((3) ()))
+>(test (mpowerset '(1 2)) '((1 2)(2) (1) ()))
+>(test (mpowerset '(1 2 3)) '((1 2 3) (2 3) (1 3) (3) (1 2) (2) (1) ()))
