@@ -1,3 +1,4 @@
+#lang plai
 
 #| ejerccio #1
 #Array - Definir un tipo de dato Array que tenga un constructor de tipo MArray. El entero sirve para definir
@@ -5,8 +6,10 @@
 |#
 
 
+
 (define-type Array
-  [Array (n number?) (l list?)])
+  [MArray (n number?) (lista list?)])
+
 
 #| ejerccio #2
 
