@@ -12,9 +12,25 @@
 
 
 #| ejerccio #2
-
-
+#             List - Definir un tipo de dato recursivo llamado MList que tenga a la lista vac´ıa MEmpty y el constructor de
+#tipo MCons, i.e.
 |#
+
+(define-type MList
+  [MEmpty]
+  [MCons (n number?)(l MList?)])
+  
+  
+  > (test (MEmpty) (MEmpty))
+  
+  > (test (MCons 1 (MCons 2  (MEmpty))) (MCons 1 (MCons 2  (MEmpty))))
+  
+  >  (test (MCons 10 (MCons 12  (MEmpty))) (MCons 10 (MCons 12  (MEmpty))))
+  
+  >  (test (MCons 10  (MEmpty)) (MCons 10   (MEmpty)))
+  
+  > (test (MCons 1 (MCons 2 (MCons 3 (MCons 4(MEmpty))))) (MCons 1 (MCons 2 (MCons 3 (MCons 4(MEmpty))))))
+  
 
 #| ejerccio #3
 
