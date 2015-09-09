@@ -1,7 +1,7 @@
 #lang plai
 
 #| ejerccio #1
-#Array - Definir un tipo de dato Array que tenga un constructor de tipo MArray. El entero sirve para definir
+#             Array - Definir un tipo de dato Array que tenga un constructor de tipo MArray. El entero sirve para definir
 #el tama˜no del arreglo
 |#
 
@@ -23,8 +23,8 @@
 
 
 #| ejerccio #4
-
-
+#             Position - Define un tipo de dato llamado Position que tenga un constructor de tipo 2D-Point que toma
+#dos n´umeros reales que indican una posici´on en el plano cartesiano, i.e.
 |#
 (define-type Position
   [2D-Point (x number?) (y number?)])
@@ -53,9 +53,12 @@
 
 
 #| ejerccio #7
-
-
+#              MArray2MList - Dado un arreglo de tipo MArray, regresar una lista de tipo MList que contenga todos los
+#elementos del arreglo original, i.e.
 |#
+
+
+
 
 #| ejerccio #8
 
