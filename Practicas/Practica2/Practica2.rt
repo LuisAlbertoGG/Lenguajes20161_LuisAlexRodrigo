@@ -26,7 +26,18 @@
 
 
 |#
-
+(define-type Position
+  [2D-Point (x number?) (y number?)])
+  
+  >(test (2D-Point (sqrt 9) (- 5 8)) (2D-Point 3 -3) )
+  
+  >(test (2D-Point 0 1) (2D-Point 0 1) )
+  
+  > (test (2D-Point 0 0) (2D-Point 0 0) )
+  
+  > (test (2D-Point 10 -0) (2D-Point 10 -0) )
+  
+  > (test (2D-Point (* 1 3) 5) (2D-Point 3 5) )
 
 
 #| ejerccio #5
