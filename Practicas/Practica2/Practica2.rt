@@ -62,10 +62,14 @@
   > (test (2D-Point (* 1 3) 5) (2D-Point 3 5) )
 
 
-#| ejerccio #5
-
-
-|#
+(define-type Position
+  (2D-Point [x number?] [y number?]))
+  
+#|Ejercicio 5|#
+(define-type Figure
+  (Circle [centro Position?] [radio number?])
+  (Square [esquina Position?] [lado number?])
+  (Rectangle [esquina Position?] [ancho number?] [largo number?]))
 
 
 #| Ejercicio 6: Dado un arreglo de tipo Array, una posici ́on y un valor num ́erico v, regresar otro arreglo con
@@ -113,10 +117,23 @@ mayor al tama˜no especificado en el arreglo, regresar un error Out of bounds. |
   > (test (MArray2MList (MArray 5 '(1 2 ))) (MCons 1 (MCons 2 (MEmpty))) )
 
 
-#| ejerccio #8
+#| ejerccio #8 |#
+
+(define (printML lis)
+  (if (MEmpty? lis)
+      "[]"
+      (if(MEmpty? (MCons-l lis))
+        (string-append "[" (~a (MCons-n lis)) "]")
+         (string-append "[" (aux_printML lis) "]"))))
+ 
+(define (aux_printML lis)
+  (if (MEmpty? lis)
+      ""
+      (if(MEmpty? (MCons-l lis))
+         (string-append (~a (MCons-n lis)))
+         (string-append (~a (MCons-n lis)) ", " (aux_printML (MCons-l lis))))))
 
 
-|#
 
 
 #| Ejercicio 9: Dadas dos listas de tipo MList, regresar la concatenaci ́on. |#
@@ -151,11 +168,12 @@ mayor al tama˜no especificado en el arreglo, regresar un error Out of bounds. |
              ]
     })
 
-#| ejerccio #11
+#| ejerccio #11 |#
 
-
-|#
-
+(define (mapML f lis)
+  (cond
+    [(MEmpty? lis) (MEmpty)]
+    [else (MCons (f (MCons-n lis)) (mapML f (MCons-l lis)))]))
 
 
 #| Ejercicio 12: Dada una lista de tipo MLista y un predicado de un argumento, regresar una lista de tipo MLista
@@ -206,10 +224,13 @@ sin los elementos que al aplicar el predicado, regresa falso. |#
 |#
 
 
-#| ejerccio #17
+#| ejerccio #17 |#
 
-
-|#
+(define (area Figure)
+  (cond
+    [(Circle? Figure) (* pi (* (Circle-radio Figure) (Circle-radio Figure)))]
+    [(Square? Figure) (*(Square-lado Figure) (Square-lado Figure))]
+    [(Rectangle? Figure)(*(Rectangle-ancho Figure)(Rectangle-largo Figure))]))
 
 
 #| ejerccio #18
