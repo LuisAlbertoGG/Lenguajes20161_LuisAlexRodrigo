@@ -68,9 +68,28 @@
 |#
 
 
-#| ejerccio #6
+#| Ejercicio 6: Dado un arreglo de tipo Array, una posici ́on y un valor num ́erico v, regresar otro arreglo con
+el valor v intercambiado en la posici´on indicada del arreglo original. En caso de que la posici´on sea igual o
+mayor al tama˜no especificado en el arreglo, regresar un error Out of bounds. |#
 
+(define (setvalueA array pos val)
+  [if(not(Array? array))
+     (error 'setvalueA "Unknown Type")
+     (if(> pos (- (MArray-n array) 1))
+        (error 'setvalueA "Out of bounds")
+        (coloca (MArray-lista array) pos val 0))])
 
+(define (coloca array pos val cont)
+  [cond
+    [(< cont pos) (cons (car array) (coloca (cdr array) pos val (add1 cont)))]
+    [(> cont pos) empty]
+    [(= cont pos) (cons val (cdr array))]])
+
+#|
+(define ar (MArray 5 '(0 0 0 0 0)))
+(test (setvalueA ar 2 4) '(0 0 4 0 0))
+(test (setvalueA ar 1 5) '(0 5 0 0 0))
+(test (setvalueA ar 0 10) '(10 0 0 0 0))
 |#
 
 
