@@ -158,9 +158,25 @@ mayor al tama˜no especificado en el arreglo, regresar un error Out of bounds. |
 
 
 
-#| ejerccio #12
+#| Ejercicio 12: Dada una lista de tipo MLista y un predicado de un argumento, regresar una lista de tipo MLista
+sin los elementos que al aplicar el predicado, regresa falso. |#
 
+(define (filterML lst pred)
+  (type-case MList lst
+    [MEmpty () (MEmpty)]
+    [MCons (n l) (if (pred n)
+                     (MCons n (filterML l pred))
+                     (filterML l pred))]))
 
+#|
+(define lst (MEmpty))
+(test (filterML lst (lambda (x) (not (zero? x)))) (MEmpty))
+
+(define lst1 (MCons 3 (MEmpty)))
+(test (filterML lst1 (lambda (x) (not (zero? x)))) (MCons 3 (MEmpty)))
+
+(define lst2 (MCons 5 (MCons 7 (MEmpty))))
+(test (filterML lst2 (lambda (x) (not (zero? x)))) (MCons 5 (MCons 7 (MEmpty))))
 |#
 
 
