@@ -98,7 +98,19 @@ mayor al tama˜no especificado en el arreglo, regresar un error Out of bounds. |
 #elementos del arreglo original, i.e.
 |#
 
-
+(define (MArray2MList array)
+  (type-case Array array
+    [MArray (length lst)
+            (cond
+              [[empty? lst] (MEmpty)]
+              [else (MCons (car lst) (MArray2MList (MArray length (cdr lst))))]
+              )
+            ]
+    
+  ))
+  
+  > (test (MCons 1 (MEmpty)) (MCons 1 (MEmpty)))
+  > (test (MArray2MList (MArray 5 '(1 2 ))) (MCons 1 (MCons 2 (MEmpty))) )
 
 
 #| ejerccio #8
@@ -128,11 +140,16 @@ mayor al tama˜no especificado en el arreglo, regresar un error Out of bounds. |
 
 
 #| ejerccio #10
-
-
+#      lengthML - Dada una lista de tipo MLista, regresar la cantidad de elementos que tiene, i.e
 |#
 
-
+(define (lengthML Lista)
+  {type-case MList Lista
+      [MEmpty () 0]
+      [MCons (valor resLista)
+             (+ 1 (lengthML  resLista))
+             ]
+    })
 
 #| ejerccio #11
 
