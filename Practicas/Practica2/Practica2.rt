@@ -237,9 +237,34 @@ sin los elementos que al aplicar el predicado, regresa falso. |#
     [(Rectangle? Figure)(*(Rectangle-ancho Figure)(Rectangle-largo Figure))]))
 
 
-#| ejerccio #18
+#| Ejercicio 18: Dada una figura fig del tipo Figure y una posici ́on p del tipo 2D-Point regresa #t si p esta
+dentro de fig y #f en caso contrario. |#
 
+(define (in-figure? fig pos)
+  (type-case Figure fig
+    [Circle (centro radio) (type-case Position pos
+                             [2D-Point (x y) (if (<= (sqrt (+ (sqr(- x (X centro))) (sqr(- y (Y centro))))) radio) #t #f)])]
+    [Rectangle (esquina an lar) (if (and (>= (X pos) (X esquina)) (<= (X pos) (+ an (X esquina)))
+                                              (>= (Y pos) (Y esquina)) (<= (Y pos) (+ lar (Y esquina)))) #t #f)]
+    [Square (esquina lado) (if (and (>= (X pos) (X esquina))
+                                     (<= (X pos)(+ lado (X esquina)))
+                                     (>= (Y pos) (Y esquina))
+                                     (<= (Y pos)(+ lado (Y esquina)))) #t #f)]))
 
+;Método auxiliar.
+(define (X pos)
+  (type-case Position pos
+    [2D-Point (x y) x]))
+;Método auxiliar.
+(define (Y pos)
+  (type-case Position pos
+    [2D-Point (x y) y]))
+
+#|
+(test (in-figure? (Circle (2D-Point 5 5) 4) (2D-Point 6 6)) #t)
+(test (in-figure? (Square (2D-Point 2 3) 4) (2D-Point 2 2)) #f)
+(test (in-figure? (Rectangle (2D-Point 6 7) 4 6) (2D-Point 3 2)) #f)
 |#
+
 
 
