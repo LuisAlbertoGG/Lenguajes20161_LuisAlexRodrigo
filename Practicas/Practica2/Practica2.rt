@@ -107,9 +107,23 @@ mayor al tama˜no especificado en el arreglo, regresar un error Out of bounds. |
 |#
 
 
-#| ejerccio #9
+#| Ejercicio 9: Dadas dos listas de tipo MList, regresar la concatenaci ́on. |#
 
+(define (concatML lst lst1)
+  [cond
+    [(MEmpty? lst) lst1]
+    [(MEmpty? lst1) lst]
+    [else (MCons (MCons-n lst) (concatML (MCons-l lst) lst1))]])
 
+#|
+(test (concatML (MCons 7 (MCons 4 (MEmpty))) (MCons 1 (MEmpty)))
+      (MCons 7 (MCons 4 (MCons 1 (MEmpty)))) )
+
+(test (concatML (MCons 4 (MEmpty)) (MCons 2 (MEmpty)))
+      (MCons 4 (MCons 2 (MEmpty))) )
+
+(test (concatML (MCons 3 (MEmpty)) (MCons 1 (MEmpty)))
+      (MCons 3 (MCons 1 (MEmpty))) )
 |#
 
 
