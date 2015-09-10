@@ -32,11 +32,17 @@
   > (test (MCons 1 (MCons 2 (MCons 3 (MCons 4(MEmpty))))) (MCons 1 (MCons 2 (MCons 3 (MCons 4(MEmpty))))))
   
 
-#| ejerccio #3
+#| Ejercicio 3: Definir un tipo de dato recursivo llamado NTree que tenga como una hoja nula TLEmpty y un
+   constructor de tipo NodeN. |#
 
+(define-type NTree
+  [TLEmpty]
+  [NodeN (n number?) (l (listof NTree?))])
 
+#|
+(test (TLEmpty) (TLEmpty))
+(test (NodeN 1 (list (TLEmpty) (TLEmpty) (TLEmpty))) (NodeN 1 (list (TLEmpty) (TLEmpty) (TLEmpty))))
 |#
-
 
 #| ejerccio #4
 #             Position - Define un tipo de dato llamado Position que tenga un constructor de tipo 2D-Point que toma
