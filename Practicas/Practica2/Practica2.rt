@@ -70,6 +70,10 @@
   (Circle [centro Position?] [radio number?])
   (Square [esquina Position?] [lado number?])
   (Rectangle [esquina Position?] [ancho number?] [largo number?]))
+  
+(test (Circle (2D-Point 2 2) 2) (Circle (2D-Point 2 2) 2))
+(test (Square (2D-Point 7 3) 15) (Square (2D-Point 7 3) 15))
+(test (Rectangle (2D-Point 4 1) 7 9) (Rectangle (2D-Point 4 1) 7 9))
 
 
 #| Ejercicio 6: Dado un arreglo de tipo Array, una posici ́on y un valor num ́erico v, regresar otro arreglo con
