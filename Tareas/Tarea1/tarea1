@@ -1,1 +1,8 @@
 Tarea#1
+2.
+  No
+  {with {x 4}
+    {with {x 7}
+      {with {f {fun {y} {+ x y}}}
+        {with {x 5}
+          {f 10}}}}}
