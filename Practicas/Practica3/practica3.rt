@@ -1,1 +1,52 @@
 #lang plai
+
+(define-type HRZ
+  [resting (low number?)
+           (high number?)]
+  [warm-up (low number?)
+           (high number?)]
+  [fat-burning (low number?)
+               (high number?)]
+  [aerobic (low number?)
+           (high number?)]
+  [anaerobic (low number?)
+             (high number?)]
+  [maximum (low number?)
+           (high number?)])
+
+(define-type Coordinate
+  [GPS (lat number?)
+       (long number?)])
+
+(define-type Frame
+  [trackpoint (loc GPS?)
+              (hr exact-integer?)
+              (zone HRZ?)
+              (unix-time exact-integer?)])
+
+
+;Ejercicio 1
+(define (zones re max)
+  (define (zonesaux i ra re lst)
+    (cond
+      [(= i 0) (let ([lst (append lst (list (resting re (- (+ re (* ra (+ 0.5 (* 0.1 i)))) 1))))])
+                 (zonesaux (+ i 1) ra re lst))]
+      [(= i 1 )(let ([lst (append lst (list (warm-up (+ re (* ra (+ 0.5 (* 0.1 (- i 1)))))  
+                                         (- (+ re (* ra (+ 0.5 (* 0.1 i)))) 1))))])
+                 (zonesaux (+ i 1) ra re lst))]
+      [(= i 2 )(let ([lst (append lst (list (fat-burning (+ re (* ra (+ 0.5 (* 0.1 (- i 1)))))  
+                                         (- (+ re (* ra (+ 0.5 (* 0.1 i)))) 1))))])
+                 (zonesaux (+ i 1) ra re lst))]
+      [(= i 3 )(let ([lst (append lst (list (aerobic (+ re (* ra (+ 0.5 (* 0.1 (- i 1)))))  
+                                         (- (+ re (* ra (+ 0.5 (* 0.1 i)))) 1))))])
+                 (zonesaux (+ i 1) ra re lst))]
+      [(= i 4 )(let ([lst (append lst (list (anaerobic (+ re (* ra (+ 0.5 (* 0.1 (- i 1)))))  
+                                         (- (+ re (* ra (+ 0.5 (* 0.1 i)))) 1))))])
+                 (zonesaux (+ i 1) ra re lst))]
+      [(= i 5 )(let ([lst (append lst (list (maximum (+ re (* ra (+ 0.5 (* 0.1 (- i 1)))))  
+                                         (+ re (* ra (+ 0.5 (* 0.1 i)))) )))])
+                 lst)]))
+  (cond
+    [(not (number? re)) error "El primer parametro no es del tipo especificado"]
+    [(not (number? max)) error "El segundo parametro no es del tipo especificado"]
+    [else (zonesaux 0 (- max re) re '())]))
