@@ -51,6 +51,7 @@
     [(not (number? max)) error "El segundo parametro no es del tipo especificado"]
     [else (zonesaux 0 (- max re) re '())]))
 
+
 ;(define my-zones (zones 50 180))
 
 ;Ejercicio 2
