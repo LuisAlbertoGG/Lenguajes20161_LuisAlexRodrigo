@@ -50,31 +50,17 @@
     [(not (number? re)) error "El primer parametro no es del tipo especificado"]
     [(not (number? max)) error "El segundo parametro no es del tipo especificado"]
     [else (zonesaux 0 (- max re) re '())]))
-
-(define my-zones (zones 50 180))
-
-;Ejercicio 2
-(define (get-zone symbol lst)
-  (cond
-    [(empty? lst) error "La lista esta vacia"]
-    [(not (symbol? symbol)) error "El primer parametro no es un simbolo"]
-    [(not (list? lst)) error "El primer parametro no es un simbolo"]
-    [(and (eq? 'resting symbol) (resting? (car lst))) (car lst)]
-    [(and (eq? 'warm-up symbol) (warm-up? (car lst))) (car lst)]
-    [(and (eq? 'fat-burning symbol) (fat-burning? (car lst))) (car lst)]
-    [(and (eq? 'aerobic symbol) (aerobic? (car lst))) (car lst)]
-    [(and (eq? 'anaerobic symbol) (anaerobic? (car lst))) (car lst)]
-    [(and (eq? 'maximum symbol) (maximum? (car lst))) (car lst)]
-    [else (get-zone symbol (cdr lst))]))
-
-
-
-    (define (create-trackpoints lista zc)
-  (cond
-    [(empty? lista) '()]
-    [else
-     (define loc (GPS (first (second (car lista))) (second (second (car lista)))))
-     (define hr (third (car lista)))
-     (define zone (zone 'resting zc))
-     (define time (first (car lista)))
-     (cons (trackpoint loc hr zone time) (create-trackpoints (cdr lista) zc))]))
+    
+    
+    
+    
+    
+   (define (create-trackpoints lista zone)
+    (cond
+      [(empty? lista) '()]
+      [else
+       (define loc (GPS (first (second (car lista))) (second (second (car lista)))))
+       (define hr (third (car lista)))
+       (define zone (zone 'resting zone))
+       (define time (first (car lista)))
+       (cons (trackpoint loc hr zone time) (create-trackpoints (cdr lista) zone))]))
