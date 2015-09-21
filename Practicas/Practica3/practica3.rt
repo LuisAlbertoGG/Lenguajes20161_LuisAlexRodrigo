@@ -50,3 +50,17 @@
     [(not (number? re)) error "El primer parametro no es del tipo especificado"]
     [(not (number? max)) error "El segundo parametro no es del tipo especificado"]
     [else (zonesaux 0 (- max re) re '())]))
+    
+    
+    
+    
+    
+    (define (create-trackpoints lista zc)
+  (cond
+    [(empty? lista) '()]
+    [else
+     (define loc (GPS (first (second (car lista))) (second (second (car lista)))))
+     (define hr (third (car lista)))
+     (define zone (zone 'resting zc))
+     (define time (first (car lista)))
+     (cons (trackpoint loc hr zone time) (create-trackpoints (cdr lista) zc))]))
