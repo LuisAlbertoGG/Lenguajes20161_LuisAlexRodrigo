@@ -80,3 +80,37 @@
        (define zone (zone 'resting zone))
        (define time (first (car lista)))
        (cons (trackpoint loc hr zone time) (create-trackpoints (cdr lista) zone))]))
+       
+  ;Ejercicio 3
+       
+  (define (bpm->zone lisa lisb)
+    (define (aux frecu lis)
+      (cond
+        [(empty? lis) "Lista vacia."]
+        [(and (resting? (car lis)) 
+           (<= (resting-low (car lis)) frecu) 
+           (>= (resting-high (car lis)) frecu)) (car lis)]
+        [(and (warm-up? (car lis)) 
+           (<= (warm-up-low (car lis)) frecu) 
+           (>= (warm-up-high (car lis)) frecu)) (car lis)]
+        [(and (fat-burning? (car lis)) 
+           (<= (fat-burning-low (car lis)) frecu) 
+           (>= (fat-burning-high (car lis)) frecu)) (car lis)]
+        [(and (anaerobic? (car lis)) 
+           (<= (anaerobic-low (car lis)) frecu) 
+           (>= (anaerobic-high (car lis)) frecu)) (car lis)]
+        [(and (aerobic? (car lis)) 
+           (<= (aerobic-low (car lis)) frecu) 
+           (>= (aerobic-high (car lis)) frecu)) (car lis)]
+        [(and (maximum? (car lis)) 
+           (<= (maximum-low (car lis)) frecu) 
+           (>= (maximum-high (car lis)) frecu)) (car lis)]
+        [else (aux frecu (cdr lis))]))
+      (define (aux0 lisa lisb zon) 
+        (cond
+          [(empty? lisa) '()]
+          [else (append (list (aux (car lisa) lisb)) (aux0 (cdr lisa) lisb zon) )]))
+      (cond
+        [(not (list? lisa)) error "El primer parametro no es una lista."]
+        [(not (list? lisb)) error "El segundo parametro no es una lista."]
+        [else (aux0 lisa lisb '())]))
