@@ -1,5 +1,7 @@
 #lang plai
 
+(require "practica3-base.rkt")
+
 (define-type HRZ
   [resting (low number?)
            (high number?)]
@@ -114,3 +116,10 @@
         [(not (list? lisa)) error "El primer parametro no es una lista."]
         [(not (list? lisb)) error "El segundo parametro no es una lista."]
         [else (aux0 lisa lisb '())]))
+
+
+(define (ninBT tree)
+  (cond
+    [(EmptyBT? tree) 0]
+    [(and (EmptyBT? (BNode-l tree)) (EmptyBT? (BNode-r tree))) 0]
+    [else (+ 1 (ninBT (BNode-l tree)) (ninBT (BNode-r tree)))]))
