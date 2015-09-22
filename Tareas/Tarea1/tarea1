@@ -6,3 +6,19 @@ Tarea#1
       {with {f {fun {y} {+ x y}}}
         {with {x 5}
           {f 10}}}}}
+          
+  En esta función no se cumple con la igualdad
+
+3.
+
+Forma de Bruijn
+
+
+{with {5{fun {x} {fun {y} { + x y}}}3
+   {with {10{adder x} 
+	 {<: 0  1>
+	  {with{+ 10 <: 3 3>} {<: 1 1>0}
+	    {+{+ <: 1 1><:1 0>} <: 3 2>}}}}}}}
+	    
+		Corridas:
+		
