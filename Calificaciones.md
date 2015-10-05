@@ -19,3 +19,9 @@ Les había dicho que no comentaran sus pruebas y que no pusieran > antes de las
 llamadas a 'test'
 
 **Calificación: 5**
+
+### Practica 3
+
+Solo implementaron zones, get-zone, bpm->zone y ninBT sin pruebas.
+
+**Calificación: 2**
