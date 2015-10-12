@@ -25,3 +25,18 @@ llamadas a 'test'
 Solo implementaron zones, get-zone, bpm->zone y ninBT sin pruebas.
 
 **Calificación: 2**
+
+## Tareas
+
+### Tarea 2
+
+Problema 1: FAE no tiene estructuras de control explicitas pueden ser definidas
+como vimos en calculo lambda, la justificación del combinador Y no es suficiente.
+
+Problema 2: El programa podia ser mucho mas simple y directo.
+
+Problema 3: Sin respuesta.
+
+Problema 4: Sin respuesta.
+
+**Calificación: 2.5**
