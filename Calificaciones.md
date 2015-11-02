@@ -28,6 +28,10 @@ Solo implementaron zones, get-zone, bpm->zone y ninBT sin pruebas.
 
 ## Tareas
 
+### Tarea 1
+
+**Calificación: 0**
+
 ### Tarea 2
 
 Problema 1: FAE no tiene estructuras de control explicitas pueden ser definidas
