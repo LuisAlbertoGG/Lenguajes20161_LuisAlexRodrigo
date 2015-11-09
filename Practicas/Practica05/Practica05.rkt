@@ -1,132 +1,44 @@
 #lang plai
 
+(define (interp expr env)
+    (type-case FCFAEL expr
+        [num (n) (numV n)]
+        [id (n) (lookup n env)]
+        [bool (b) (boolV b)]
+        [listC (l) (listC l)]
+        [ifC (c t e) (if (evalBool (interp c env))
+                        (interp t env)
+                        (interp e env))]
+        [isequal? (x y) (evalEqual (interp x env) (interp y env))]
+        [op (f l) (opV f (interp l env))]
+        [binop (f l r) (opV f (interp l env) (interp r env))]
+        [boolOpBin (f l r) (boolop f (interp l env) (interp r env))]
 
-(define-type Binding
-  [bind (name symbol?) (val RCFAELS?)])
-
-(define-type RCFAELS
-  [numS (n number?)]
-  [MEmpty (n number?)]
-  [withS (bindings (listof bind?))
-         (body RCFAELS?)]
-  [with*S (bindings (listof bind?))
-          (body RCFAELS?)]
-  [idS (name symbol?)]
-  [funS (params (listof symbol?))
-        (body RCFAELS?)]
-  [appS (fun RCFAELS?)
-        (args (listof RCFAELS?))]
-  [binopS (f procedure?)
-         (l RCFAELS?)
-         (r RCFAELS?)]
-  [boolOpBinS (f symbol?)
-             (l RCFAELS?)
-             (r RCFAELS?)]
-  [opS (f symbol?)
-       (rst RCFAELS?)]
-  [boolS (b boolean?)]
-  [ifS (cond RCFAELS?)
-       (case1 RCFAELS?)
-       (case2 RCFAELS?)]
-  [equalS? (comp1 RCFAELS?)
-           (comp2 RCFAELS?)]
-  [listS (n RCFAELS?)
-         (rst RCFAELS?)])
-
-(define-type FCFAEL
-  [num (n number?)]
-  [id (name symbol?)]
-  [fun (params (listof symbol?))
-       (body FCFAEL?)]
-  [app (fun FCFAEL?)
-       (args (listof FCFAEL?))]
-  [binop (f procedure?)
-         (l FCFAEL?)
-         (r FCFAEL?)]
-  [boolOpBin (f symbol?)
-             (l FCFAEL?)
-             (r FCFAEL?)]
-  [op (f symbol?)
-      (rst FCFAEL?)]
-  [bool (b boolean?)]
-  [isequal? (cond1 FCFAEL?)
-            (cond2 FCFAEL?)]
-  [ifC (cond FCFAEL?)
-      (case1 FCFAEL?)
-      (case2 FCFAEL?)]
-  [listC (n FCFAEL?)
-         (rst FCFAEL?)])
-
-(define-type FCFAEL-Value
-  [numV (n number?)]
-  [MEmptyV]
-  [closureV (param (listof symbol?))
-            (body FCFAEL?)
-            (env Env?)]
-  [boolV (b boolean?)]
-  [listV (n FCFAEL-Value?)
-         (rst FCFAEL-Value?)])
-
-(define-type Env
-  [mtSub]
-  [aSub (name symbol?) 
-        (value FCFAEL-Value?) 
-        (env Env?)])
-
-
-(define (parse-bindings lst allow)
-  (let ([bindRep (buscaRepetido lst (lambda (e1 e2) (symbol=? (car e1) (car e2))))])
-    (if (or (boolean? bindRep) allow)
-        (map (lambda (b) (bind (car b) (parse (cadr b)))) lst)
-        (error 'parse-bindings (string-append "El id " (symbol->string (car bindRep)) " está repetido")))))
-
-(define (elige s)
-  (case s
-    [(+) +]
-    [(-) -]
-    [(*) *]
-    [(/) /]
-    ;nuevos
-    [(<) <]
-    [(>) >]
-    [(<=) <=]
-    [(>=) >=]
-    [(and) 'and]
-    [(or) 'or]
-    ['and 'and]
-    ['or 'or]
-    [(inc) 'inc]
-    [(dec) 'dec]
-    [(zero?) 'zero?]
-    [(num?) 'num?]
-    [(neg) 'neg]
-    [(bool?) 'bool?]
-    [(first) 'first]
-    [(rest) 'rest]
-    [(empty?) 'empty?]
-    [(list?) 'list?]))
-    
-
-(define (buscaRepetido l comp) 
-  (cond
-    [(empty? l) #f]
-    [(member? (car l) (cdr l) comp) (car l)]
-    [else (buscaRepetido (cdr l) comp)]))
-
-(define (member? x l comparador)
-  (cond
-    [(empty? l) #f]
-    [(comparador (car l) x) #t]
-    [else (member? x (cdr l) comparador)]))
-
-(define (parse sexp)
-  (cond
-    [(symbol? sexp) (idS sexp)]
-    [(number? sexp) (numS sexp)]
-    [(list? sexp)
-     (case (car sexp)
-       [(with) (withS (parse-bindings (cadr sexp) #f) (parse (caddr sexp)))]
-       [(with*) (with*S (parse-bindings (cadr sexp) #t) (parse (caddr sexp)))]
-       [(fun) (funS (cadr sexp) (parse (caddr sexp)))]
-       [(+ - / *) (binopS (elige (car sexp)) (parse (cadr sexp)) (parse (caddr sexp)))]
-       [else (appS (parse (car sexp)) (map parse (cdr sexp)))])]))
+        [fun (params f) (closureV params f env)]
+        [app (fun-expr arg-expr) 
+             (local ([define fun-val (interp fun-expr env)])
+               (if (checkAll arg-expr env)
+                   (interp (closureV-body fun-val)
+                           (aux (closureV-param fun-val) arg-expr (closureV-env fun-val)))
+                   (error "Un simbolo no esta en el ambiente")))]))
+;;------------------------------------------
+(define (desugar expr)
+    (type-case RCFAELS expr
+        [idS (x) (id x)]
+        [numS (n) (num n)]
+        [boolS (b) (bool b)]
+        [listS (l) (listS l)]
+        [ifS (c t e) (if (desugar c) (desugar t) (desugar e))]
+        [equalS?  (x y) (equalS? (desugar x) (desugar y))]
+        [opS (f o) (op f (desugar o))]
+        [binopS (f l r) (binopS f (desugar l) (desugar r))]
+        [ boolOpBinS (f l r) (  boolOpBinS f (desugar l) (desugar r))]
+        [funS (params b) (fun params (desugar b))]
+        [appS (fun args) (app (desugar fun) (map (lambda (arg) (desugar arg)) args))]
+      
+        [withS (bindings b) (app (fun (map (lambda (bind) 
+                                        (bind-name bind)) bindings)
+                                        (desugar b))
+                                    (map (lambda (bind)
+                                        (desugar (bind-val bind))) bindings))]
+        [with*S (bindings b) (matryoshka bindings b)]))
