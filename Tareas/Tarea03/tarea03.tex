@@ -1,0 +1,200 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{Tarea 3}
+\author{Rodrigo Rivera Paz \and Godínez Galicia Luis Alberto \and Valdés Galicia Alejandro}
+\date{November 2015}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{anysize}
+\marginsize{1cm}{1cm}{2cm}{2cm}
+
+\begin{document}
+
+\maketitle
+
+\section{Problema I}
+Haga el juicio de tipo para la función fibonacci y el predicado empty?
+\\
+
+
+\\
+\newline
+\textbf{l:list}
+
+
+\rule[-2mm]{3cm}{0.1mm}
+\\
+\newline
+\textbf{\Gamma\vdash l:list}
+
+
+\rule[-2mm]{3cm}{0.1mm}
+\\
+\newline
+\textbf{\Gamma\vdash(emptry? l):boolean}
+\newline
+\newline
+\newline
+
+
+
+
+\\
+\newline
+\textbf{\Gamm\vdash n:number \hspace{4mm}\Gamm\vdash 1:number\hspace{4mm}\Gamm\vdash n:number \hspace{4mm}\Gamm\vdash 2:number}
+
+\rule[-2mm]{13cm}{0.1mm}
+\\
+\newline
+\textbf{\Gamma(fib(number\rightarrow number)) \hspace{2mm} \Gamma\vdash (-n1):number \hspace{2mm}\Gamma(fib(number\rightarrow number))\hspace{2mm} \Gamma\vdash (-n2):number}
+
+
+\rule[-2mm]{18cm}{0.1mm}
+\\
+\newline
+\textbf{\Gamma\vdash n:number \hspace{2cm}\Gamma\vdash n:number \hspace{2mm}\Gamma\vdash 1:number \hspace{1cm} \Gamma\vdash(fib(-n1)):number\hspace{2mm} \Gamma\vdash(fib(-n2)):number}
+
+
+\rule[-2mm]{17cm}{0.1mm}
+\newline
+\\
+\textbf{\Gamma\vdash(zero? n):boolean \hspace{2mm} \Gamma\vdash1:number\hspace{2mm} \Gamma\vdash(=n1):boolean \hspace{2mm} \Gamma\vdash1:number \hspace{2mm} \Gamma\vdash(+ (fib(- n 1)) (fib(- n 2))):number}
+
+
+\rule[-2mm]{12cm}{0.1mm}
+\\
+\newline
+\textbf{\Gamma[n\leftarrow number]\vdash(cond [(zero? n)1] [(= n 1)1] [(+ (fib(- n 1)) (fib(- n 2)))]): number}
+
+
+\rule[-2mm]{19cm}{0.1mm}
+\\
+\newline
+bf{\Gamma[fib \leftarrow number]\vdash(lambda(n:number)):number\hspace{2mm}(cond [(zero? n)1] [(= n 1)1] [(+ (fib(- n 1)) (fib(- n 2)))]):number\rightarrow number}
+
+
+\section{Problema II}
+Considera el siguiente programa:
+...
+\\
+
+\{[1]\} = \{(+\hspace{2mm}1\hspace{2mm}(first(cons\hspace{2mm} true \hspace{2mm}false)))\}\hspace{2mm}=\{(+ [2] [3])\}=number\hspace{2mm} y \{[2]\}=\{[3]\}
+
+\{[2]\} = number
+
+\{[3]\} = \{(first(cons\hspace{2mm} true\hspace{2mm} empty))\}=number \hspace{2mm} y \hspace{2mm} \{[4]\}=list
+
+\{[4]\} = \{(cons\hspace{2mm} true\hspace{2mm} empty)\}=list y \hspace{2mm}\{[true]\}=list, \hspace{2mm}\{[empty]\}=list
+
+\{[5]\} = \{true\}=boolean !
+\textbf{La operación cons tiene dos argumentos y ambos deben de ser de tipo list, pero a la hora de hacer las restricciones vemos que true es de tipo boolean, lo cual debe mandar un error.}
+
+
+
+\section{Problema III}
+Considera la siguiente expresióon con tipos:
+...
+\\
+
+\{[1]\} = \{f\} \rightarrow \{[1]\}
+\\
+\{[2]\} = \{x\} \rightarrow \{[2]\}
+\\
+\{[3]\} = \{y\} \rightarrow \{[3]\}
+\\
+\{[4]\} = \{(cons\hspace{2mm} x \hspace{2mm} (f (f \hspace{2mm}y))\} \hspace{2mm} con \hspace{2mm}\{x\}=list \hspace{2mm} y \hspace{2mm} \{(f (f \hspace{2mm}y))\}=list
+\\
+\{[x]\} = number
+\\
+\{[6]\} = \{(f (f \hspace{2mm}y))\} = list \hspace{2mm} con \hspace{2mm}\{f\}=number \hspace{2mm} y \hspace{2mm} \{[7]\}=list
+\\
+\{[7]\} = \{(f \hspace{2mm}y)\} = list \hspace{2mm} con \hspace{2mm}\{f\}=number \hspace{2mm} y \hspace{2mm} \{y\}=list
+\\
+\textbf{Gracias a estas restricciones podemos inferir los tipos de los Cn's.}
+
+\section{Problema IV} 
+\textbf{no cambian,por que sirven para revisar que los tipos sean correctos en la funcion } 
+\section{Problema V}
+-ventajas explisito \\
+reutilizacion de codigo, mantenimiento\\
+-implícito\\
+cambiar su tipo sin hacer un cast \\
+El polimorfismo puede hacerse con referencias de superclases abstract, super-clases normales e interfaces.\\
+
+
+-desventajas
+-explícito
+mucho codigo 
+el tipo de la referencia (clase abstracta, clase base o interface) limita los métodos que se pueden utilizar y las variables miembro a las que se pueden acceder.
+
+-implisito
+no saber que tipo es 
+
+
+
+
+\section{Problema VI}
+general \\
+-ventajas\\
+bibliotecas\\ 
+resuelve diferente tipos de problemas \\
+-desventajas\\
+el algunos problemas son lentos\\
+difícil de abstraer \\
+\\
+\\
+
+específico\\
+\\
+-ventajas\\
+ es fácil de aprender (algunos)\\
+ rápido \\
+seguridad \\
+-desventajas\\
+solo sirve para una cosa\\
+\\
+
+sql\\
+\\
+fue creado para tener datos en tablas y regresa tablas\\
+regresa la tabla nombres en una columna y su calificacion
+\\
+\\
+SELECT nombre,calificación\\
+FROM estudiante\\
+\\
+css creado solo para la parte visual de una página\\
+\\
+\begin{verbatim}
+
+/*CSS sobre selector de identificador*/\\
+#header {
+       background-color: #ff0000;
+       color: #ffffff;
+       font-size: 26px;
+       
+}
+\end{verbatim}
+\\html \\
+para dar la solo estructura a la página web 
+\\
+ \begin{verbatim}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Ejemplo documento</title>
+</head>
+<body>
+<p>Un párrafo de texto.</p>
+</body>
+</html>
+
+\end{verbatim}
+
+
+\end{document}
