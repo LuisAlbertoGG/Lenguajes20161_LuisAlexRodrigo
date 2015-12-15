@@ -48,3 +48,19 @@ Problema 3: Sin respuesta.
 Problema 4: Sin respuesta.
 
 **Calificación: 2.5**
+
+### Tarea 3
+
+Problema I: fib tiene tipo number -> number no number dado que es una función.
+
+Problema II: Muy bien.
+
+Problema III: Los tipos y derivación son incorrectos.
+
+Problema IV: La justificación dada es insuficiente.
+
+Problema V: Bien.
+
+Problem VI: Bien.
+
+**Calificación: 6**
