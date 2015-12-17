@@ -30,6 +30,14 @@ Solo implementaron zones, get-zone, bpm->zone y ninBT sin pruebas.
 
 **Calificación: 0**
 
+### Practica 5
+
+**Calificación: 0**
+
+### Practica 6
+
+**Calificación: 0**
+
 ## Tareas
 
 ### Tarea 1
